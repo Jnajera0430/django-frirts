@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block content %}
+<section class="container">
+  
+  <h1 class="text-center">Tasks list</h1>
+  <div class="row ">
+    <div class="col-md-15 offset-md-3">
+      <ul class="list-group">
+        {% for task in tasks %}
+
+        <li class="list-group-item my-2">
+          <h3>Title: {{task.tarea}}</h3>
+          <p><b>Description:</b> {{task.descripcion}}</p>
+          <p><b>Project:</b> {{task.idProject.id }}</p>
+          <p><b>Author:</b> {{task.user.username}}</p>
+          <p>
+            <b>State</b>: {% if task.done %} Tarea Completada {% else %} Tarea
+            pendiente {%endif%}
+          </p>
+          <p>
+            <b>Date of execution</b>: {% if task.dateCompleted is None %} Sin
+            fecha {% else %} {{task.dateCompleted|date:'j M Y'}} {%endif%}
+          </p>
+          <div class="d-flex justify-content-end ">
+            <a class="btn btn-secondary mx-1" href="{% url 'deleteTask' task.id %}"
+              >delete</a
+            >
+            <a class="btn btn-secondary mx-1" href="{% url 'doneTask' task.id %}"
+              >done</a
+            >
+            <a class="btn btn-secondary mx-1" href="{% url 'updateTask' task.id %}"
+              >update</a
+            >
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

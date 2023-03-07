@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Projects:</h1>
+
+<section class="container">
+  {% for data in projects %}
+  <div class="row">
+    <div class="col-md-15">
+      <ul class="list-group d-flex flex-row">
+        <li class="list-group-item ms-1 d-flex flex-column">
+          <h3>
+            <a id="project" href="{% url 'detailProject' data.id %}"
+              >Title: {{data.name}}</a
+            >
+          </h3>
+          <label for="project"
+            >State:{% if data.done %} Completada {% else %} Pendiente {% endif %}</label
+          >
+          <label for="project">Created: {{data.created}}</label>
+          <label
+            >date of excution: {% if data.dateCompleted is None%} Sin fecha 
+            {% else %} {{data.dateCompleted}} {% endif %}</label
+          >
+          <div class="d-flex justify-content-end my-2">
+            <a
+              href="{% url 'deleteProject' data.id %}"
+              class="btn btn-secondary mx-1"
+              >Delete</a
+            >
+            <a href="{% url 'updateProject' data.id %}" class="btn btn-secondary mx-1">Update</a>
+            <a href="{% url 'doneProject' data.id %}" class="btn btn-secondary mx-1">Done</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  {% endfor %}
+</section>
+{% endblock %}

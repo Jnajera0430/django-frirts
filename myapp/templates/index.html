@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block content %}
+<main class="container py-5">
+  <section class="card card-body">
+    <h1 class="display-1 text-center">{{ titulo }}</h1>
+
+    <p>
+      Comenzamos esto y nos está gustando y ahora me pregunto si podré parar que
+      cosas nos trae la vida aunque a veces puede parecer injusta siempre nos
+      estan pasando cosas buenas y por eso debemos agradecer y mas por las cosas
+      malas que es la que nos hacen avanzar para ser mas grandes y nos retan a
+      superarnos y porque no luchar para ser mas grandes buscando tener el exito
+      que todos deseamos.
+    </p>
+    <div class="text-center">
+      <a href="{% url 'signin' %}" class="btn btn-dark">signin</a >
+      <a href="{% url 'signUp' %}" class="btn btn-secondary">signup</a >
+    </div>
+  </section>
+</main>
+{% endblock %}
