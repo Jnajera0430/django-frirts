@@ -17,7 +17,7 @@ class Project(models.Model):
 class Tasks(models.Model):
     tarea = models.CharField(max_length=200)
     descripcion = models.TextField()
-    idProject = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE,null=True)
     done = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True, null=True)
     dateCompleted = models.DateTimeField(null=True)

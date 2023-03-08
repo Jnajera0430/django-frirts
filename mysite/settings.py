@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Feel free to alter this value to suit your needs.
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
+        default='postgres://rango_user:IiTJ9pSQOgdT3dcR0Z3EPIIpmi1Bsgu3@dpg-cg3qnpbhp8u5r9f753fg-a.oregon-postgres.render.com/rango',
         conn_max_age=600
     )
 }

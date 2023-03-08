@@ -1,8 +1,6 @@
 from .models import Project, Tasks
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
-from .forms import FormsCreateProject, FormsCreateTasks, forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -10,19 +8,15 @@ from datetime import datetime
 
 now = datetime.now()
 # Create your views here.
-urlPath = ""
 
 def signin(request):
     if (request.method == 'GET'):
-        return render(request, "signIn.html", {
-            'form': AuthenticationForm
-        })
+        return render(request, "signIn.html")
     else:
         user = authenticate(
             request, username=request.POST['username'], password=request.POST['password'])
         if (user is None):
             return render(request, "signIn.html", {
-                'form': AuthenticationForm,
                 'msg': 'Username or password is incorrect'
             })
         login(request, user)
@@ -32,13 +26,11 @@ def signin(request):
 def signup(request):
     if (request.method == 'GET'):
         return render(request, "signUp.html", {
-            'form': UserCreationForm,
             'msg': ''
         })
     else:
         if (request.POST['password1'] != request.POST['password2']):
             return render(request, "signUp.html", {
-                'form': UserCreationForm,
                 'msg': "Passwords do not match."
             })
 
@@ -50,7 +42,6 @@ def signup(request):
             return redirect('home')
         except:
             return render(request, "signUp.html", {
-                'form': UserCreationForm,
                 'msg': "User already exists."
             })
 
@@ -86,23 +77,20 @@ def tasks(request):
 @login_required
 def createTask(request):
     if (request.method == 'GET'):
-        FormsCreateTasks().__init__(request)
         project = Project.objects.filter(user = request.user)
         return render(request, 'tasks/formTask.html', {
-            'form': FormsCreateTasks(),
             'project': project
         })
     else:
         try:
             Tasks.objects.create(
-                tarea=request.POST['tarea'], descripcion=request.POST['descripcion'], idProject_id=request.POST['idProject'],
+                tarea=request.POST['tarea'], descripcion=request.POST['descripcion'], project=request.POST['idProject'],
                 user=request.user
             )
 
             return redirect('taskList')
         except ValueError:
             return render(request, 'tasks/formTask.html', {
-                'form': FormsCreateTasks(),
                 'msg': 'Por favor inserta solo datos validos'
             })
 
@@ -144,9 +132,7 @@ def updateTask(request, idTask):
 @login_required
 def createProject(request):
     if (request.method == 'GET'):
-        return render(request, "projects/formProject.html", {
-            'form': FormsCreateProject()
-        })
+        return render(request, "projects/formProject.html")
     else:
         Project.objects.create(name=request.POST['name'], user=request.user)
         return redirect('project')
@@ -161,8 +147,8 @@ def project(request):
 
 @login_required
 def projectDetail(request, idProject):
-    project = get_object_or_404(Project, id=idProject)
-    detailProject = Tasks.objects.all().filter(idProject_id=idProject, user = request.user)
+    get_object_or_404(Project, id=idProject)
+    detailProject = Tasks.objects.all().filter(project=idProject, user = request.user)
     return render(request, 'projects/detailProject.html', {
         'detailProject': detailProject,
         'project': project
