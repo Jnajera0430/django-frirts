@@ -84,7 +84,7 @@ def createTask(request):
     else:
         try:
             Tasks.objects.create(
-                tarea=request.POST['tarea'], descripcion=request.POST['descripcion'], project=request.POST['idProject'],
+                tarea=request.POST['tarea'], descripcion=request.POST['descripcion'], project_id=request.POST['project'],
                 user=request.user
             )
 
