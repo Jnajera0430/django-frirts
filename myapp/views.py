@@ -123,7 +123,6 @@ def updateTask(request, idTask):
         })
     else:
         task = get_object_or_404(Tasks, pk = idTask)
-        print(request.POST)
         task.tarea = request.POST['tarea']
         task.descripcion = request.POST['descripcion']
         task.save()
