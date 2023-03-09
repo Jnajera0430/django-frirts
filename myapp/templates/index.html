@@ -3,18 +3,21 @@
   <section class="card card-body">
     <h1 class="display-1 text-center">{{ titulo }}</h1>
 
+    <h3>-¿ Por que lo hacemos ?</h3>
     <p>
-      Comenzamos esto y nos está gustando y ahora me pregunto si podré parar que
-      cosas nos trae la vida aunque a veces puede parecer injusta siempre nos
-      estan pasando cosas buenas y por eso debemos agradecer y mas por las cosas
-      malas que es la que nos hacen avanzar para ser mas grandes y nos retan a
-      superarnos y porque no luchar para ser mas grandes buscando tener el exito
-      que todos deseamos.
+      -Porque nadie mas se atreve y porqué no ser el que se muere en el intento?. Respondió con exclamación el que ya está muerto.
     </p>
+    <h3>Rango</h3>
+    <p>App para organizar y realizar tus proyectos. Divide tus proyectos en pequeñas tareas, realiza tus tareas una por una o en el orden que deseas al finalizar todas tus tareas marca tu proyecto como realizado.</p>
     <div class="text-center">
-      <a href="{% url 'signin' %}" class="btn btn-dark">signin</a >
-      <a href="{% url 'signUp' %}" class="btn btn-secondary">signup</a >
+      {% if not user.is_authenticated %}
+        <a href="{% url 'signin' %}" class="btn btn-dark">signin</a >
+        <a href="{% url 'signUp' %}" class="btn btn-secondary">signup</a >
+      {% else %}
+          <h3 class="display-4"> Bienvenido </h3>
+      {% endif %}
     </div>
+
   </section>
 </main>
 {% endblock %}
